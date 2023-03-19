@@ -1,4 +1,4 @@
-create table public.CUSTOMERS
+create table if not exists public.CUSTOMERS
 (
     id             serial primary key not null,
     name           varchar(50) not null,
@@ -7,7 +7,16 @@ create table public.CUSTOMERS
     phone_number   varchar(15)
 );
 
-create table public.ORDERS
+INSERT INTO CUSTOMERS (
+    name,
+    surname,
+    age    )
+VALUES('ALEX','SMITH', 55),
+      ('DARIA','PAVLOVA', 15),
+      ('SIMON','POLUSHKIN', 30),
+      ('ALEXEY','POPOV', 21);
+
+create table if not exists public.ORDERS
 (
     id                  serial primary key not null,
     date                date not null,
@@ -17,7 +26,7 @@ create table public.ORDERS
     constraint customers
         foreign key (customer_id)
             references customers(id)
-)
+);
 
 INSERT INTO orders (
     date,
@@ -29,13 +38,3 @@ VALUES(now(),1, 'margarita', 4),
       (now(),4, 'margarita', 1),
       (now(), 3, 'pepperoni', 2),
       (now(), 2, 'double_cheese', 1);
-
-
-INSERT INTO CUSTOMERS (
-    name,
-    surname,
-    age    )
-VALUES('ALEX','SMITH', 55),
-      ('DARIA','PAVLOVA', 15),
-      ('SIMON','POLUSHKIN', 30),
-      ('ALEXEY','POPOV', 21);
